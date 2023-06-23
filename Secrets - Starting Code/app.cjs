@@ -8,7 +8,6 @@ const bcrypt=require("bcrypt");
 const saltRounds=10;
 
 const app=express();
-console.log(process.env.API);
 app.use(express.static("public"));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({
