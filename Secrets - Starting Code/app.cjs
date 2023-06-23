@@ -9,7 +9,7 @@ const saltRounds=10;
 
 const app=express();
 
-// set up rate limiter: maximum of five requests per minute
+// set up rate limiter: maximum of five requests per 3 seconds
 var RateLimit = require('express-rate-limit');
 var limiter = RateLimit({
   windowMs: 1*3*1000, // 3 seconds
@@ -79,13 +79,7 @@ app.post("/login",(req,res)=>{
         }
     })
 })
-app.delete("/api/delete", async (req, res) => {
-    let id = req.body.id;
-  
-    await Todo.deleteOne({ _id: id }); // BAD: id might be an object with special properties
-  
-    res.json({ status: "ok" });
-  });
+
 app.get("/logout",(req,res)=>{
     res.redirect("/");
 })
