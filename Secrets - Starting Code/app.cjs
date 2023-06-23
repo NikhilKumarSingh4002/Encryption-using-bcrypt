@@ -8,6 +8,17 @@ const bcrypt=require("bcrypt");
 const saltRounds=10;
 
 const app=express();
+
+// set up rate limiter: maximum of five requests per minute
+var RateLimit = require('express-rate-limit');
+var limiter = RateLimit({
+  windowMs: 1*3*1000, // 3 seconds
+  max: 5
+});
+
+// apply rate limiter to all requests
+app.use(limiter);
+
 app.use(express.static("public"));
 app.set('view engine','ejs');
 app.use(bodyParser.urlencoded({
