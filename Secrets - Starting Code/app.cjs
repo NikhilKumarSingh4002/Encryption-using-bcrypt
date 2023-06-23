@@ -70,7 +70,7 @@ app.post("/login",(req,res)=>{
             
             bcrypt.compare(password, foundUser.password, function(err, result) {
                 if(result==true){
-                res.render("secrets");
+                    res.render("secrets");
                 }
                 else{
                     console.log(err);
@@ -79,6 +79,13 @@ app.post("/login",(req,res)=>{
         }
     })
 })
+app.delete("/api/delete", async (req, res) => {
+    let id = req.body.id;
+  
+    await Todo.deleteOne({ _id: id }); // BAD: id might be an object with special properties
+  
+    res.json({ status: "ok" });
+  });
 app.get("/logout",(req,res)=>{
     res.redirect("/");
 })
